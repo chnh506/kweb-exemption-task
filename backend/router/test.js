@@ -1,9 +1,10 @@
 //test.js
-const express = require("express");
-const router = express.Router();
+import express from "express";
 
-router.get("/", (req, res) => {
+const testRouter = express.Router();
+
+testRouter.get("/", (req, res) => {
   res.send("hi");
 });
 
-module.exports = router;
+export default testRouter;
