@@ -5,7 +5,7 @@ import JoinPage from "./pages/JoinPage";
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<LogInPage />} />
+      <Route path="/login" element={<LogInPage />} />
       <Route path="/join" element={<JoinPage />} />
     </Routes>
   );

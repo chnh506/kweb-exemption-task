@@ -102,27 +102,30 @@ const RadioContainer = styled.div`
   margin-bottom: 1rem;
 `;
 
-// const RadioLabel = styled.label`
-//   font-size: 1rem;
-//   color: #555;
-//   margin-right: 1rem;
-// `;
-
-// const RadioInput = styled.input`
-//   margin-right: 0.5rem;
-// `;
-
 const RadioLabel = styled.label<{ checked: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48%;
+  padding: 0.75rem;
   font-size: 1rem;
   color: ${({ checked }) => (checked ? "#007bff" : "#555")};
   font-weight: ${({ checked }) => (checked ? "bold" : "normal")};
-  display: flex;
-  align-items: center;
+  border: 1px solid ${({ checked }) => (checked ? "#007bff" : "#ccc")};
+  border-radius: 5px;
   cursor: pointer;
+  text-align: center;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease;
+
+  &:hover {
+    border-color: #007bff;
+  }
 `;
 
-const RadioInput = styled.input`
-  margin-right: 0.5rem;
+const HiddenRadioInput = styled.input`
+  display: none;
 `;
 
 // JoinPage 컴포넌트
@@ -152,7 +155,7 @@ function JoinPage() {
         <Label>학생/교수자 역할 선택</Label>
         <RadioContainer>
           <RadioLabel checked={role === "student"}>
-            <RadioInput
+            <HiddenRadioInput
               type="radio"
               name="role"
               value="student"
@@ -162,7 +165,7 @@ function JoinPage() {
             학생
           </RadioLabel>
           <RadioLabel checked={role === "instructor"}>
-            <RadioInput
+            <HiddenRadioInput
               type="radio"
               name="role"
               value="instructor"
