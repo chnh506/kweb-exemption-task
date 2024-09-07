@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -24,11 +25,67 @@ const Message = styled.p`
   text-align: center;
 `;
 
+const StyledLink = styled(Link)`
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const HyperlinkContainer = styled.div`
+  margin-top: 20px;
+`;
+
+const LogoutButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #d93636;
+  }
+`;
+
 const StudentMainPage: React.FC = () => {
+  const userName = localStorage.getItem("userName");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
+
+    alert("로그아웃 되었습니다.");
+    navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
+  };
+
   return (
     <Container>
       <Title>학생 메인 페이지</Title>
-      <Message>환영합니다! 이곳은 학생 메인 페이지입니다.</Message>
+      <Message>{userName}님, 환영합니다!</Message>
+
+      <HyperlinkContainer>
+        <StyledLink to="/student/application">수강신청 페이지</StyledLink>
+      </HyperlinkContainer>
+
+      <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
     </Container>
   );
 };

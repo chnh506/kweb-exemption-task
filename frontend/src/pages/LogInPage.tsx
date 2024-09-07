@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 // 스타일 정의
 const Container = styled.div`
@@ -95,22 +96,50 @@ const StyledLink = styled(Link)`
 
 // LogInPage 컴포넌트
 function LogInPage() {
-  const [id, setId] = useState("");
+  const [memberId, setMemberId] = useState("");
   const [password, setPassword] = useState("");
+  const [_, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
-  const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setId(e.target.value);
+  const handleMemberIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMemberId(e.target.value);
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 로그인 로직을 추가할 수 있습니다.
-    console.log("Id:", id);
-    console.log("Password:", password);
+    setIsSubmitting(true);
+
+    try {
+      const response = await axios.post("http://localhost:8080/login", {
+        memberId: memberId,
+        password: password,
+      });
+      console.log(response);
+
+      // 서버에서 받은 정보를 로컬 스토리지에 저장
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.user._id);
+      localStorage.setItem("userName", response.data.user.name);
+      localStorage.setItem("userRole", response.data.user.role);
+
+      alert("로그인 성공");
+
+      // 역할에 따라 다른 페이지로 리다이렉트
+      if (response.data.user.role === "student") {
+        navigate("/student/main");
+      } else {
+        navigate("/instructor/main");
+      }
+    } catch (error) {
+      console.error("로그인 실패:", error);
+      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -120,9 +149,9 @@ function LogInPage() {
         <Label htmlFor="id">아이디</Label>
         <Input
           type="text"
-          id="id"
-          value={id}
-          onChange={handleIdChange}
+          id="memberId"
+          value={memberId}
+          onChange={handleMemberIdChange}
           placeholder="아이디"
         />
 
