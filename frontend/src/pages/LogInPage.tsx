@@ -118,7 +118,6 @@ function LogInPage() {
         memberId: memberId,
         password: password,
       });
-      console.log(response);
 
       // 서버에서 받은 정보를 로컬 스토리지에 저장
       localStorage.setItem("token", response.data.token);

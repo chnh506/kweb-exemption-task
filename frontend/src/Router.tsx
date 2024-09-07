@@ -10,7 +10,8 @@ import StudentViewOwnLecturePostPage from "./pages/StudentViewOwnLecturePostPage
 import InstructorMainPage from "./pages/InstructorMainPage";
 import InstructorCoursesPage from "./pages/InstructorCoursesPage";
 import InstructorAddCoursePage from "./pages/InstructorAddCoursePage";
-import InstructorAddLecturePostPage from "./pages/InstructorAddLecturePostPage";
+import InstructorCoursePostsPage from "./pages/InstructorCoursePostsPage";
+import InstructorAddCoursePostPage from "./pages/InstructorAddCoursePostPage";
 
 function Router() {
   const loggedInUserRole: string = "";
@@ -42,8 +43,12 @@ function Router() {
         element={<InstructorAddCoursePage />}
       />
       <Route
-        path="/instructor/add-lecture-post"
-        element={<InstructorAddLecturePostPage />}
+        path="/instructor/courses/:courseId/posts"
+        element={<InstructorCoursePostsPage />}
+      />
+      <Route
+        path="/instructor/courses/:courseId/add-post"
+        element={<InstructorAddCoursePostPage />}
       />
 
       {/* 로그인한 사용자의 역할에 따라 리다이렉트 */}

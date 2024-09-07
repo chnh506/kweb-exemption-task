@@ -75,9 +75,16 @@ const AddCourseButton = styled(Link)`
   }
 `;
 
+interface ICourse {
+  _id: string;
+  instructorId: string;
+  courseName: string;
+  __v: number;
+}
+
 const InstructorCoursesPage: React.FC = () => {
   const userName = localStorage.getItem("userName");
-  const [courses, setCourses] = useState<string[]>([]);
+  const [courses, setCourses] = useState<ICourse[]>([]);
 
   useEffect(() => {
     // 현재 교수자의 강의 목록을 가져오는 API 요청
@@ -108,8 +115,11 @@ const InstructorCoursesPage: React.FC = () => {
         {courses.length > 0 ? (
           courses.map((course, index) => (
             <CourseItem key={index}>
-              <CourseName>{course}</CourseName>
-              <ViewPostsButton to={`/instructor/courses/${index}/posts`}>
+              <CourseName>{course.courseName}</CourseName>
+              <ViewPostsButton
+                to={`/instructor/courses/${course._id}/posts`}
+                state={{ course }}
+              >
                 강의 게시물 관리
               </ViewPostsButton>
             </CourseItem>
