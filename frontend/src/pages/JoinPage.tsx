@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 // 스타일 정의
 const Container = styled.div`
@@ -131,26 +132,88 @@ const HiddenRadioInput = styled.input`
 // JoinPage 컴포넌트
 function JoinPage() {
   const [role, setRole] = useState("student");
+  const [formData, setFormData] = useState({
+    memberId: "",
+    password: "",
+    name: "",
+    memberNumber: "",
+  });
+  const navigate = useNavigate();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRole(e.target.value);
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const endpoint =
+        role === "student"
+          ? "http://localhost:8080/student/register"
+          : "http://localhost:8080/instructor/register";
+
+      const response = await axios.post(endpoint, formData);
+
+      console.log("회원가입 성공:", response.data);
+      alert("회원가입이 완료되었습니다.");
+      navigate("/login"); // 회원가입 후 로그인 페이지로 리다이렉트
+    } catch (error) {
+      console.error("회원가입 실패:", error);
+      alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
   return (
     <Container>
       <Title>회원가입</Title>
-      <FormContainer>
-        <Label htmlFor="id">아이디</Label>
-        <Input type="text" id="id" placeholder="아이디" />
+      <FormContainer onSubmit={handleSubmit}>
+        <Label htmlFor="memberId">아이디</Label>
+        <Input
+          type="text"
+          id="memberId"
+          value={formData.memberId}
+          onChange={handleChange}
+          placeholder="아이디"
+          required
+        />
 
         <Label htmlFor="password">비밀번호</Label>
-        <Input type="password" id="password" placeholder="비밀번호" />
+        <Input
+          type="password"
+          id="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="비밀번호"
+          required
+        />
 
         <Label htmlFor="name">이름</Label>
-        <Input type="text" id="name" placeholder="이름" />
+        <Input
+          type="text"
+          id="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="이름"
+          required
+        />
 
         <Label htmlFor="memberNumber">학번</Label>
-        <Input type="text" id="memberNumber" placeholder="학번" />
+        <Input
+          type="text"
+          id="memberNumber"
+          value={formData.memberNumber}
+          onChange={handleChange}
+          placeholder="학번"
+          required
+        />
 
         <Label>학생/교수자 역할 선택</Label>
         <RadioContainer>
