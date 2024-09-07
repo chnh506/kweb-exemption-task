@@ -8,9 +8,9 @@ import StudentViewOwnLecturePage from "./pages/StudentViewOwnLecturePage";
 import StudentViewOwnLecturePostPage from "./pages/StudentViewOwnLecturePostPage";
 
 import InstructorMainPage from "./pages/InstructorMainPage";
-import InstructorAddLecturePage from "./pages/InstructorAddLecturePage";
+import InstructorCoursesPage from "./pages/InstructorCoursesPage";
+import InstructorAddCoursePage from "./pages/InstructorAddCoursePage";
 import InstructorAddLecturePostPage from "./pages/InstructorAddLecturePostPage";
-import InstructorViewLecturePage from "./pages/InstructorViewLecturePage";
 
 function Router() {
   const loggedInUserRole: string = "";
@@ -20,6 +20,7 @@ function Router() {
       {/* 회원가입 및 로그인 라우트 */}
       <Route path="/join" element={<JoinPage />} />
       <Route path="/login" element={<LogInPage />} />
+
       {/* 학생 대상 페이지 라우트 */}
       <Route path="/student/main" element={<StudentMainPage />} />
       <Route
@@ -35,17 +36,14 @@ function Router() {
 
       {/* 교수자 관련 페이지 라우트 */}
       <Route path="/instructor/main" element={<InstructorMainPage />} />
+      <Route path="/instructor/courses" element={<InstructorCoursesPage />} />
       <Route
-        path="/instructor/add-lecture"
-        element={<InstructorAddLecturePage />}
+        path="/instructor/add-course"
+        element={<InstructorAddCoursePage />}
       />
       <Route
         path="/instructor/add-lecture-post"
         element={<InstructorAddLecturePostPage />}
-      />
-      <Route
-        path="/instructor/view-lectures"
-        element={<InstructorViewLecturePage />}
       />
 
       {/* 로그인한 사용자의 역할에 따라 리다이렉트 */}
