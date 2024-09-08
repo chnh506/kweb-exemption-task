@@ -42,7 +42,11 @@ const StyledLink = styled(Link)`
 `;
 
 const HyperlinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* 화면이 좁아지면 링크들이 수직으로 쌓이도록 설정 */
   margin-top: 20px;
+  gap: 20px; /* 각 링크 간의 간격을 추가 */
 `;
 
 const LogoutButton = styled.button`

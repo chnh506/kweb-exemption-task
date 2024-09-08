@@ -103,7 +103,10 @@ const StudentViewOwnCoursesPage: React.FC = () => {
           courses.map((course) => (
             <CourseItem key={course._id}>
               <CourseName>{course.courseName}</CourseName>
-              <ViewPostsButton to={`/student/courses/${course._id}/posts`}>
+              <ViewPostsButton
+                to={`/student/own-courses/${course._id}/posts`}
+                state={{ courseName: course.courseName }}
+              >
                 게시물 보기
               </ViewPostsButton>
             </CourseItem>

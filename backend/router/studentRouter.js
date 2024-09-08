@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import Student from "../model/Student.js";
 import CourseApplication from "../model/CourseApplication.js";
+import CoursePost from "../model/CoursePost.js";
 
 const studentRouter = express.Router();
 
@@ -89,6 +90,24 @@ studentRouter.get("/applied-courses/:studentId", async (req, res) => {
     res
       .status(500)
       .json({ message: "신청한 강의 목록을 조회하는 데 실패했습니다." });
+  }
+});
+
+// 수강신청한 강의의 게시물 목록 조회
+studentRouter.get("/own-courses/:courseId/posts", async (req, res) => {
+  const { courseId } = req.params;
+
+  try {
+    // 해당 강의의 게시물 목록을 가져옴
+    const coursePosts = await CoursePost.find({ courseId }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json({ coursePosts });
+  } catch (error) {
+    console.error("게시물 목록 조회 실패:", error);
+    res
+      .status(500)
+      .json({ message: "게시물 목록을 조회하는 데 실패했습니다." });
   }
 });
 
