@@ -21,7 +21,7 @@
 
 ```bash
 git clone https://github.com/chnh506/kweb-exemption-task.git
-cd your-project
+cd kweb-exemption-task
 ```
 
 ### 2. 의존성 설치
