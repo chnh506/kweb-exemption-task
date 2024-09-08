@@ -42,7 +42,11 @@ const StyledLink = styled(Link)`
 `;
 
 const HyperlinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* 화면이 좁아지면 링크들이 수직으로 쌓이도록 설정 */
   margin-top: 20px;
+  gap: 20px; /* 각 링크 간의 간격을 추가 */
 `;
 
 const LogoutButton = styled.button`
@@ -84,6 +88,9 @@ const StudentMainPage: React.FC = () => {
       <HyperlinkContainer>
         <StyledLink to="/student/courses" state={{ userName }}>
           수강신청 페이지
+        </StyledLink>
+        <StyledLink to="/student/own-courses" state={{ userName }}>
+          수강중인 강의 목록
         </StyledLink>
       </HyperlinkContainer>
 

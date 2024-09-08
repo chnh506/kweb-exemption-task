@@ -65,6 +65,13 @@ const ApplyButton = styled.button`
   }
 `;
 
+interface IAppliedCourses {
+  courseName: string;
+  instructorId: string;
+  __v: number;
+  _id: string;
+}
+
 const StudentCourseApplicationPage: React.FC = () => {
   const location = useLocation();
   const { userName } = location.state; // 로그인된 학생의 이름을 state로 받아옴
@@ -96,9 +103,13 @@ const StudentCourseApplicationPage: React.FC = () => {
             },
           }
         );
+        const appliedCoursesIds =
+          appliedCoursesResponse.data.appliedCourses.map(
+            (course: IAppliedCourses) => course._id
+          );
 
         setCourses(coursesResponse.data.courses);
-        setAppliedCourses(appliedCoursesResponse.data.appliedCourseIds); // 신청한 강의 ID 목록을 저장
+        setAppliedCourses(appliedCoursesIds); // 신청한 강의 ID 목록을 저장
       } catch (error) {
         console.error("데이터를 가져오는 데 실패했습니다.", error);
       }

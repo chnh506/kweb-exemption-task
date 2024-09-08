@@ -75,11 +75,15 @@ studentRouter.get("/applied-courses/:studentId", async (req, res) => {
   const { studentId } = req.params;
 
   try {
+    // 학생이 수강 신청한 강의 목록을 가져옴
     const appliedCourses = await CourseApplication.find({ studentId }).populate(
       "courseId"
     );
-    const courseIds = appliedCourses.map((app) => app.courseId._id); // 학생이 신청한 강의 ID 목록 반환
-    res.status(200).json({ appliedCourseIds: courseIds });
+
+    // 강의 정보만 추출하여 반환
+    const courses = appliedCourses.map((app) => app.courseId);
+
+    res.status(200).json({ appliedCourses: courses });
   } catch (error) {
     console.error("신청한 강의 목록 조회 실패:", error);
     res

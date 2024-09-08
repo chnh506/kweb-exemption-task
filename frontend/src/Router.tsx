@@ -4,7 +4,7 @@ import JoinPage from "./pages/JoinPage";
 
 import StudentMainPage from "./pages/StudentMainPage";
 import StudentCourseApplicationPage from "./pages/StudentCourseApplicationPage";
-import StudentViewOwnLecturePage from "./pages/StudentViewOwnLecturePage";
+import StudentViewOwnCoursesPage from "./pages/StudentViewOwnCoursesPage";
 import StudentViewOwnLecturePostPage from "./pages/StudentViewOwnLecturePostPage";
 
 import InstructorMainPage from "./pages/InstructorMainPage";
@@ -28,7 +28,10 @@ function Router() {
         path="/student/courses"
         element={<StudentCourseApplicationPage />}
       />
-      <Route path="/student/lectures" element={<StudentViewOwnLecturePage />} />
+      <Route
+        path="/student/own-courses"
+        element={<StudentViewOwnCoursesPage />}
+      />
       {/** 학생 번호(아이디)를 변수로 하는 url */}
       <Route
         path="/student/lectures/posts"
