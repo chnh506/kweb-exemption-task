@@ -20,7 +20,12 @@ app.use(
     origin: "http://localhost:3000",
   })
 ); // frontend domain에 대해서만 cors 허용 설정
-app.use(express.json());
+
+// JSON 요청 크기 제한을 10MB로 설정
+app.use(express.json({ limit: "100mb" }));
+
+// URL-encoded 요청 크기 제한을 10MB로 설정
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
 
 // mongoDB 연결
 const mongoURI = process.env.MONGO_URI;

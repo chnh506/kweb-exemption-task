@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
+import DOMPurify from "dompurify";
 
 const Container = styled.div`
   display: flex;
@@ -89,6 +90,10 @@ const StudentViewOwnCoursePostsPage: React.FC = () => {
     fetchPosts();
   }, [courseId]);
 
+  const sanitizeContent = (content: string) => {
+    return { __html: DOMPurify.sanitize(content) }; // DOMPurify를 활용해 취약점 보완
+  };
+
   return (
     <Container>
       <Title>{courseName} - 게시물 목록</Title>
@@ -97,7 +102,9 @@ const StudentViewOwnCoursePostsPage: React.FC = () => {
           coursePosts.map((post) => (
             <PostItem key={post._id}>
               <PostTitle>{post.title}</PostTitle>
-              <PostContent>{post.content}</PostContent>
+              <PostContent
+                dangerouslySetInnerHTML={sanitizeContent(post.content)}
+              />
             </PostItem>
           ))
         ) : (
