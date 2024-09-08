@@ -82,7 +82,9 @@ const StudentMainPage: React.FC = () => {
       <Message>{userName}님, 환영합니다!</Message>
 
       <HyperlinkContainer>
-        <StyledLink to="/student/application">수강신청 페이지</StyledLink>
+        <StyledLink to="/student/courses" state={{ userName }}>
+          수강신청 페이지
+        </StyledLink>
       </HyperlinkContainer>
 
       <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>

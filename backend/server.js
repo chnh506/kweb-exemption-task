@@ -79,7 +79,7 @@ app.post("/login", async (req, res) => {
 // router 설정
 app.use("/student", studentRouter);
 app.use("/instructor", instructorRouter);
-app.use("/course", courseRouter);
+app.use("/courses", courseRouter);
 app.use("/coursePost", coursePostRouter);
 
 // 서버 시작
