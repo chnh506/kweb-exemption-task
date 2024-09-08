@@ -26,8 +26,16 @@ cd your-project
 
 ### 2. 의존성 설치
 
+둘을 차례로 진행해주시면 됩니다.
+
 ```bash
 npm install
+```
+
+```bash
+cd frontend
+npm install
+cd ../
 ```
 
 ### 3. .env 파일을 루트 디렉터리에 추가
@@ -44,6 +52,6 @@ npm start
 
 ## 기타 사항
 
-- **Node.js, Express**로 백엔드를 구성하였으며, **Reactjs, Typescript**로 프론트엔드를 구성하였습니다.
+- **Node.js, Express**로 백엔드를 구성하였으며, **Reactjs(Typescript)**로 프론트엔드를 구성하였습니다.
 - **MongoDB**와 **Mongoose**를 사용하여 데이터베이스 작업을 처리합니다.
 - **JWT**를 사용한 인증이 포함되어 있으며, **bcrypt**로 비밀번호 해시화를 처리합니다.
